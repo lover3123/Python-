@@ -1,0 +1,5 @@
+#print('cats','dogs','mice','sep=',')
+#o/p cats dogs mice
+print('cats', 'dogs', 'mice', sep=',')
+#o/p cats,dogs,mice
+
