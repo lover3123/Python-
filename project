@@ -1,0 +1,92 @@
+import json
+import uuid
+from datetime import datetime
+
+class Student:
+    def __init__(self, name, dob, course, email):
+        self.id = str(uuid.uuid4())[:8]  # unique 8-character ID
+        self.name = name
+        self.dob = dob
+        self.course = course
+        self.email = email
+        self.admission_date = datetime.now().strftime('%Y-%m-%d')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "dob": self.dob,
+            "course": self.course,
+            "email": self.email,
+            "admission_date": self.admission_date
+        }
+
+class AdmissionSystem:
+    def __init__(self, filename="students.json"):
+        self.filename = filename
+        self.students = self.load_students()
+
+    def load_students(self):
+        try:
+            with open(self.filename, "r") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            return []
+
+    def save_students(self):
+        with open(self.filename, "w") as file:
+            json.dump(self.students, file, indent=4)
+
+    def add_student(self, name, dob, course, email):
+        student = Student(name, dob, course, email)
+        self.students.append(student.to_dict())
+        self.save_students()
+        print(f"\n✅ Student {student.name} added with ID: {student.id}")
+
+    def view_all_students(self):
+        if not self.students:
+            print("\nNo students enrolled.")
+            return
+        print("\n📘 All Enrolled Students:")
+        for stu in self.students:
+            print(f"  • {stu['id']} - {stu['name']} ({stu['course']})")
+
+    def search_student(self, keyword):
+        found = [s for s in self.students if keyword.lower() in s['name'].lower() or s['id'] == keyword]
+        if found:
+            print("\n🔍 Search Result:")
+            for s in found:
+                print(json.dumps(s, indent=4))
+        else:
+            print("\n❌ No matching student found.")
+
+def main():
+    system = AdmissionSystem()
+
+    while True:
+        print("\n--- Student Admission Menu ---")
+        print("1. Add Student")
+        print("2. View All Students")
+        print("3. Search Student")
+        print("4. Exit")
+
+        choice = input("Enter choice: ")
+        if choice == "1":
+            name = input("Enter name: ")
+            dob = input("Enter date of birth (YYYY-MM-DD): ")
+            course = input("Enter course: ")
+            email = input("Enter email: ")
+            system.add_student(name, dob, course, email)
+        elif choice == "2":
+            system.view_all_students()
+        elif choice == "3":
+            keyword = input("Enter student name or ID: ")
+            system.search_student(keyword)
+        elif choice == "4":
+            print("Exiting... 👋")
+            break
+        else:
+            print("❗ Invalid choice. Try again.")
+
+if __name__ == "__main__":
+    main()
