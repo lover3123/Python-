@@ -1,118 +1,143 @@
-#include <stdio.h> #include <stdlib.h> #include <string.h>
- 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #define MAX 100
- 
- 
-// Node structure struct Song {
-char title[MAX]; struct Song* next;
+
+// Node structure
+struct Song {
+    char title[MAX];
+    struct Song *next;
 };
- 
- 
-struct Song* head = NULL;
- 
- 
-// Function to create and add song to end void addSong() {
-struct Song* newSong = (struct Song*)malloc(sizeof(struct Song)); if (!newSong) {
-printf("Memory allocation failed!\n"); return;
+
+struct Song *head = NULL;
+
+// Function to add a song to the end of the playlist
+void addSong() {
+    struct Song *newSong = (struct Song *)malloc(sizeof(struct Song));
+    if (!newSong) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+
+    printf("Enter song title: ");
+    getchar(); // Clear leftover newline from previous input
+    fgets(newSong->title, MAX, stdin);
+    newSong->title[strcspn(newSong->title, "\n")] = '\0'; // Remove newline
+    newSong->next = NULL;
+
+    if (head == NULL) {
+        head = newSong;
+    } else {
+        struct Song *temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newSong;
+    }
+
+    printf("Song \"%s\" added to playlist.\n", newSong->title);
 }
-
-printf("Enter song title: "); getchar(); // Clear input buffer fgets(newSong->title, MAX, stdin);
-newSong->title[strcspn(newSong->title, "\n")] = '\0'; // Remove newline newSong->next = NULL;
- 
-if (head == NULL) { head = newSong;
-} else {
-struct Song* temp = head; while (temp->next != NULL)
-temp = temp->next; temp->next = newSong;
+
+// Function to play the first song
+void playFromStart() {
+    if (head == NULL) {
+        printf("Playlist is empty!\n");
+        return;
+    }
+    printf("Now Playing (Start): %s\n", head->title);
 }
- 
- 
-printf("Song \"%s\" added to playlist.\n", newSong->title);
+
+// Function to play the last song
+void playFromEnd() {
+    if (head == NULL) {
+        printf("Playlist is empty!\n");
+        return;
+    }
+    struct Song *temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+    printf("Now Playing (End): %s\n", temp->title);
 }
- 
- 
-// Function to play song from start void playFromStart() {
-if (head == NULL) {
-printf("Playlist is empty!\n"); return;
+
+// Function to delete the first song
+void deleteFromStart() {
+    if (head == NULL) {
+        printf("Playlist is empty! Nothing to delete.\n");
+        return;
+    }
+    struct Song *temp = head;
+    printf("Deleting song: %s\n", temp->title);
+    head = head->next;
+    free(temp);
 }
-printf("Now Playing (Start): %s\n", head->title);
+
+// Function to delete the last song
+void deleteFromEnd() {
+    if (head == NULL) {
+        printf("Playlist is empty! Nothing to delete.\n");
+        return;
+    }
+    if (head->next == NULL) {
+        printf("Deleting song: %s\n", head->title);
+        free(head);
+        head = NULL;
+        return;
+    }
+
+    struct Song *temp = head;
+    while (temp->next->next != NULL)
+        temp = temp->next;
+
+    printf("Deleting song: %s\n", temp->next->title);
+    free(temp->next);
+    temp->next = NULL;
 }
- 
- 
-// Function to play song from end void playFromEnd() {
-if (head == NULL) {
-
-printf("Playlist is empty!\n"); return;
+
+// Function to display all songs in playlist
+void displayPlaylist() {
+    if (head == NULL) {
+        printf("Playlist is empty!\n");
+        return;
+    }
+
+    struct Song *temp = head;
+    printf("\nCurrent Playlist:\n");
+    while (temp != NULL) {
+        printf(" - %s\n", temp->title);
+        temp = temp->next;
+    }
 }
-struct Song* temp = head; while (temp->next != NULL)
-temp = temp->next;
-printf("Now Playing (End): %s\n", temp->title);
+
+// Main menu function
+int main() {
+    int choice;
+
+    printf("Music Playlist using Singly Linked List\n");
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Add Song to Playlist\n");
+        printf("2. Play Song from Start\n");
+        printf("3. Play Song from End\n");
+        printf("4. Delete Song from Start\n");
+        printf("5. Delete Song from End\n");
+        printf("6. Display Playlist\n");
+        printf("7. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: addSong(); break;
+            case 2: playFromStart(); break;
+            case 3: playFromEnd(); break;
+            case 4: deleteFromStart(); break;
+            case 5: deleteFromEnd(); break;
+            case 6: displayPlaylist(); break;
+            case 7: printf("Exiting... Goodbye!\n"); exit(0);
+            default: printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
 }
- 
- 
-// Function to delete song from start void deleteFromStart() {
-if (head == NULL) {
-printf("Playlist is empty! Nothing to delete.\n"); return;
-}
-struct Song* temp = head;
-printf("Deleting song: %s\n", temp->title); head = head->next;
-free(temp);
-}
- 
- 
-// Function to delete song from end void deleteFromEnd() {
-if (head == NULL) {
-printf("Playlist is empty! Nothing to delete.\n"); return;
-}
-if (head->next == NULL) {
-printf("Deleting song: %s\n", head->title); free(head);
-head = NULL;
-
-return;
-}
- 
- 
-struct Song* temp = head;
-while (temp->next->next != NULL) temp = temp->next;
- 
-printf("Deleting song: %s\n", temp->next->title); free(temp->next);
-temp->next = NULL;
-}
- 
- 
-// Display the entire playlist void displayPlaylist() {
-if (head == NULL) {
-printf("Playlist is empty!\n"); return;
-}
- 
- 
-struct Song* temp = head; printf("\nCurrent Playlist:\n"); while (temp != NULL) {
-printf(" %s\n", temp->title); temp = temp->next;
-}
-}
- 
- 
-// Main function int main() {
-int choice;
-
-printf("Music Playlist using Singly Linked List \n");
- 
- 
-while (1) {
-printf("\nMenu:\n");
-printf("1. Add Song to Playlist\n"); printf("2. Play Song from Start\n"); printf("3. Play Song from End\n"); printf("4. Delete Song from Start\n"); printf("5. Delete Song from End\n"); printf("6. Display Playlist\n");
-printf("7. Exit\n");
- 
- 
-printf("Enter your choice: "); scanf("%d", &choice);
- 
-switch (choice) {
-case 1: addSong(); break;
-case 2: playFromStart(); break; case 3: playFromEnd(); break; case 4: deleteFromStart(); break; case 5: deleteFromEnd(); break; case 6: displayPlaylist(); break;
-case 7: printf("Exiting... Goodbye \n"); exit(0); default: printf("Invalid choice. Please try again.\n");
-}
-}
- 
- 
-return 0;
-}
-
