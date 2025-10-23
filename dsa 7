@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 100
+
+// Node structure
+struct Node {
+    char url[MAX];
+    struct Node *prev;
+    struct Node *next;
+};
+
+struct Node *head = NULL;
+struct Node *current = NULL;
+
+// Function to visit a new page
+void visitPage() {
+    char url[MAX];
+    printf("Enter URL to visit: ");
+    getchar(); // Clear leftover newline from input buffer
+    fgets(url, MAX, stdin);
+    url[strcspn(url, "\n")] = '\0'; // Remove newline from input
+
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    strcpy(newNode->url, url);
+    newNode->prev = current;
+    newNode->next = NULL;
+
+    if (current != NULL) {
+        current->next = newNode;
+    } else {
+        head = newNode; // First page
+    }
+
+    current = newNode;
+    printf("Visited: %s\n", current->url);
+}
+
+// Function to go back x steps
+void goBack() {
+    int steps;
+    printf("Enter steps to go back: ");
+    scanf("%d", &steps);
+
+    int count = 0;
+    while (current->prev != NULL && count < steps) {
+        current = current->prev;
+        count++;
+    }
+    printf("Current page after going back %d step(s): %s\n", count, current->url);
+}
+
+// Function to go forward x steps
+void goForward() {
+    int steps;
+    printf("Enter steps to go forward: ");
+    scanf("%d", &steps);
+
+    int count = 0;
+    while (current->next != NULL && count < steps) {
+        current = current->next;
+        count++;
+    }
+    printf("Current page after going forward %d step(s): %s\n", count, current->url);
+}
+
+// Function to show current page
+void showCurrentPage() {
+    if (current == NULL) {
+        printf("No page visited yet.\n");
+    } else {
+        printf("Currently viewing: %s\n", current->url);
+    }
+}
+
+// Function to show full browser history
+void showHistory() {
+    if (head == NULL) {
+        printf("No browsing history.\n");
+        return;
+    }
+
+    printf("\nBrowser History:\n");
+    struct Node *temp = head;
+    while (temp != NULL) {
+        if (temp == current)
+            printf("-> %s [CURRENT]\n", temp->url);
+        else
+            printf("   %s\n", temp->url);
+        temp = temp->next;
+    }
+}
+
+// Menu-driven main function
+int main() {
+    int choice;
+
+    printf("Browser History Simulator using Doubly Linked List\n");
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Visit New Page\n");
+        printf("2. Go Back in History\n");
+        printf("3. Go Forward in History\n");
+        printf("4. Show Current Page\n");
+        printf("5. Show Full History\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                visitPage();
+                break;
+            case 2:
+                goBack();
+                break;
+            case 3:
+                goForward();
+                break;
+            case 4:
+                showCurrentPage();
+                break;
+            case 5:
+                showHistory();
+                break;
+            case 6:
+                printf("Exiting... Goodbye!\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+    return 0;
+}
