@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 5 // Maximum number of calls allowed in queue
+
+char queue[MAX][50]; // Queue to store caller names
+int front = -1, rear = -1;
+
+// Function to add a call to the queue
+void addCall() {
+    if (rear == MAX - 1) {
+        printf("Queue Overflow! Cannot add more calls.\n");
+        return;
+    }
+
+    char call[50];
+    printf("Enter caller name or ID: ");
+    scanf("%s", call);
+
+    if (front == -1)
+        front = 0; // First insertion
+
+    rear++;
+    strcpy(queue[rear], call);
+    printf("Call '%s' added to the queue.\n", call);
+}
+
+// Function to delete (attend) a call from the queue
+void deleteCall() {
+    if (front == -1 || front > rear) {
+        printf("Queue Underflow! No calls to attend.\n");
+        return;
+    }
+
+    printf("Call '%s' attended and removed from the queue.\n", queue[front]);
+    front++;
+
+    if (front > rear) {
+        front = rear = -1; // Reset queue if empty
+    }
+}
+
+// Function to display current calls
+void displayQueue() {
+    if (front == -1 || front > rear) {
+        printf("Call queue is empty.\n");
+        return;
+    }
+
+    printf("Current Call Queue:\n");
+    for (int i = front; i <= rear; i++) {
+        printf("- %s\n", queue[i]);
+    }
+}
+
+// Main function with menu
+int main() {
+    int choice;
+
+    printf("Call Center Queue Simulation using Linear Queue\n");
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Add a Call\n");
+        printf("2. Delete a Call\n");
+        printf("3. Display Current Calls\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addCall();
+                break;
+            case 2:
+                deleteCall();
+                break;
+            case 3:
+                displayQueue();
+                break;
+            case 4:
+                printf("Exiting... Thank you!\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+
+    return 0;
+}
