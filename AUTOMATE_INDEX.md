@@ -22,4 +22,4 @@ Source: Al Sweigart, Automate the Boring Stuff with Python, 1st ed. (2015), CC-B
 | `module-17-images/` | Ch 17 Manipulating Images — 24 programs | Syllabus Ch17: Pillow |
 | `module-18-gui-automation/` | Ch 18 GUI Automation Keyboard Mouse — 36 programs | Syllabus Ch18: pyautogui |
 
-Total: 597 .py files. `shell_*` = interactive >>> sessions converted to runnable lines with `# OUT:` expected output. `script_*` = full book scripts.
+Total: 597 .py files in book order per module: `01_topic.py`, `02_topic.py`, ... (`NN` = learning sequence, `NN/Total` also in each file's 2-line header). `[shell]` = interactive >>> sessions (>>> stripped, expected output as `# OUT:` comments, includes intentional error demos). `[script]` = book scripts/examples (some are teaching fragments).

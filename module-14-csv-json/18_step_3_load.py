@@ -1,0 +1,25 @@
+# Ch14 | 18/21 | Step 3: Load JSON Data and Print Weather [script]
+# Automate 1e by Al Sweigart (CC-BY-NC-SA) - https://automatetheboringstuff.com/1e/chapter14
+
+{'city': {'coord': {'lat': 37.7771, 'lon': -122.42},
+          'country': 'United States of America',
+          'id': '5391959',
+          'name': 'San Francisco',
+          'population': 0},
+'cnt': 3,
+'cod': '200',
+'list': [{'clouds': 0,
+          'deg': 233,
+          'dt': 1402344000,
+          'humidity': 58,
+          'pressure': 1012.23,
+          'speed': 1.96,
+          'temp': {'day': 302.29,
+                   'eve': 296.46,
+                   'max': 302.29,
+                   'min': 289.77,
+                   'morn': 294.59,
+                   'night': 289.77},
+          'weather': [{'description': 'sky is clear',
+                       'icon': '01d',
+--snip--

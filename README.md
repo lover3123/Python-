@@ -12,9 +12,9 @@ See [AUTOMATE_INDEX.md](AUTOMATE_INDEX.md) for the full chapter→module table.
 
 ## Automate the Boring Stuff programs
 597 code examples from Al Sweigart, *Automate the Boring Stuff with Python*, 1st ed. (2015), free under CC-BY-NC-SA at https://automatetheboringstuff.com/1e/ — Ch 1–11, 13–18 (Ch 12 Excel skipped per syllabus).
-- `module-*/chNN_script_*.py` — book scripts/examples (faithful excerpts; some are fragments shown for teaching, may need surrounding code to run).
-- `module-*/chNN_shell_*.py` — interactive `>>>` sessions, converted so `>>>` lines are code and expected output is `# OUT:` comments. Includes intentional error demos (`SyntaxError`, `TypeError`, etc.) which will NOT run clean — that is the point of the demo.
-- Each file header gives chapter, book section, source URL, and PPT mapping.
+- Files are in book/learning order per module: `01_topic.py`, `02_topic.py`, ... Each file has a 2-line header: `# ChX | NN/Total | Section [shell|script]` + attribution line.
+- `[shell]` = interactive `>>>` sessions (`>>>` stripped, expected output as `# OUT:` comments; includes intentional error demos that will NOT run clean — that is the demo).
+- `[script]` = book scripts/examples (some are short teaching fragments).
 
 ## Pre-existing folders (untouched)
 `flowcontrol/`, `functions/`, `lab session/`, plus `dsa 7`, `dsa p6`, `program 9`, `project`, `python 2 std`.

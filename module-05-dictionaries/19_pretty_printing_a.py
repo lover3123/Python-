@@ -1,0 +1,26 @@
+# Ch5 | 19/37 | Pretty Printing [script]
+# Automate 1e by Al Sweigart (CC-BY-NC-SA) - https://automatetheboringstuff.com/1e/chapter5
+
+{' ': 13,
+ ',': 1,
+ '.': 1,
+ 'A': 1,
+ 'I': 1,
+ 'a': 4,
+ 'b': 1,
+ 'c': 3,
+ 'd': 3,
+ 'e': 5,
+ 'g': 2,
+ 'h': 3,
+ 'i': 6,
+ 'k': 2,
+ 'l': 3,
+ 'n': 4,
+ 'o': 2,
+ 'p': 1,
+ 'r': 5,
+ 's': 3,
+ 't': 6,
+ 'w': 2,
+ 'y': 1}
