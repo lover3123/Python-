@@ -16,5 +16,10 @@ See [AUTOMATE_INDEX.md](AUTOMATE_INDEX.md) for the full chapter→module table.
 - `[shell]` = interactive `>>>` sessions (`>>>` stripped, expected output as `# OUT:` comments; includes intentional error demos that will NOT run clean — that is the demo).
 - `[script]` = book scripts/examples (some are short teaching fragments).
 
+## One-shot beginner guides (PDF per module)
+`pdf-guides/` has 17 PDFs (626 pages total), one per module. Each guide contains: beginner concept
+explanations with key ideas + classic mistakes, a program map (all programs at a glance), then every
+program in learning order with run instructions. Start here before opening the `.py` files.
+
 ## Pre-existing folders (untouched)
 `flowcontrol/`, `functions/`, `lab session/`, plus `dsa 7`, `dsa p6`, `program 9`, `project`, `python 2 std`.
