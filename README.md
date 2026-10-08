@@ -17,8 +17,10 @@ See [AUTOMATE_INDEX.md](AUTOMATE_INDEX.md) for the full chapter→module table.
 - `[script]` = book scripts/examples (some are short teaching fragments).
 
 ## One-shot beginner guides (PDF per module)
-`pdf-guides/` has 17 PDFs (626 pages total), one per module. Each guide contains: beginner concept
-explanations with key ideas + classic mistakes, a program map (all programs at a glance), then every
+`pdf-guides/` has 17 PDFs (692 pages total), one per module. Each guide contains: beginner concept
+explanations with key ideas + classic mistakes, **interview prep Q&A**, **teach-it-to-others notes**
+(analogy + student misconceptions + 5-minute whiteboard plan), **drawn visuals** (redraw them to learn),
+**3 bonus examples** per module, a program map (all programs at a glance), then every
 program in learning order with run instructions. Start here before opening the `.py` files.
 
 ## Pre-existing folders (untouched)
